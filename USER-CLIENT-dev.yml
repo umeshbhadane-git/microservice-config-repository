@@ -1,3 +1,7 @@
+
+server:
+  port: 8081 
+
 spring:
   application:
     name: USER-CLIENT
@@ -26,5 +30,34 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761/eureka/
 
-server:
-  port: 8081 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,circuitbreakers
+
+  endpoint:
+    health:
+      show-details: always
+
+
+resilience4j:
+  circuitbreaker:
+    instances:
+
+      ratingServiceBreaker:
+        registerHealthIndicator: true    # This enables the circuit breaker to be monitored via Spring Boot Actuator's health endpoint.
+
+        slidingWindowSize: 10            # Number of calls to consider for calculating the failure rate percentage     
+        failureRateThreshold: 50         # Percentage of failures to trigger the circuit breaker
+        minimumNumberOfCalls: 5          # Minimum number of calls before the circuit breaker can calculate the failure rate
+        waitDurationInOpenState: 10s     # Time to wait before transitioning from OPEN to HALF_OPEN state
+  
+
+      hotelServiceBreaker:
+        registerHealthIndicator: true      # This enables the circuit breaker to be monitored via Spring Boot Actuator's health endpoint.
+
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        waitDurationInOpenState: 10s
