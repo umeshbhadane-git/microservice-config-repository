@@ -6,6 +6,7 @@ spring:
     url: jdbc:mysql://localhost:3306/User_Microservice
     username: root
     password: Umesh123
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:

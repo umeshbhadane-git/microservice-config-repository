@@ -6,6 +6,7 @@ spring:
     url: jdbc:postgresql://localhost:5433/Hotel_Microservice
     username: postgres
     password: Umesh123
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
